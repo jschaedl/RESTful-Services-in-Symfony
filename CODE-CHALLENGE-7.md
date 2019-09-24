@@ -4,7 +4,7 @@
 
 ### Tasks
 
-- introduce valdiation for the creating and updating Workshops and Attendees
+- introduce validation for the creating and updating Workshops and Attendees
 
 ### Solution
 

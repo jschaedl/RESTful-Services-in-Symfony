@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/attendees/{id}", name="read_attendee", methods={"GET"}, format="json")
@@ -20,10 +21,11 @@ class ReadController extends ApiController
     private $attendeeRepository;
 
     public function __construct(
-        AttendeeRepository $attendeeRepository,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        AttendeeRepository $attendeeRepository
     ) {
-        parent::__construct($serializer);
+        parent::__construct($serializer, $validator);
 
         $this->attendeeRepository = $attendeeRepository;
     }

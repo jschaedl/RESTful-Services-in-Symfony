@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/workshops", name="list_workshops", methods={"GET"}, format="json")
@@ -20,9 +21,13 @@ class ListController extends ApiController
     private $workshopRepository;
     private $paginationFactory;
 
-    public function __construct(SerializerInterface $serializer, WorkshopRepository $workshopRepository, PaginationFactory $paginationFactory)
-    {
-        parent::__construct($serializer);
+    public function __construct(
+        SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        WorkshopRepository $workshopRepository,
+        PaginationFactory $paginationFactory
+    ) {
+        parent::__construct($serializer, $validator);
 
         $this->workshopRepository = $workshopRepository;
         $this->paginationFactory = $paginationFactory;

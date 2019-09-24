@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/attendees", name="list_attendees", methods={"GET"}, format="json")
@@ -21,11 +22,12 @@ class ListController extends ApiController
     private $paginationFactory;
 
     public function __construct(
-        AttendeeRepository $attendeeRepository,
         SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        AttendeeRepository $attendeeRepository,
         PaginationFactory $paginationFactory
     ) {
-        parent::__construct($serializer);
+        parent::__construct($serializer, $validator);
 
         $this->attendeeRepository = $attendeeRepository;
         $this->paginationFactory = $paginationFactory;

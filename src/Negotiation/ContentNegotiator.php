@@ -30,7 +30,7 @@ class ContentNegotiator
     {
         $acceptableContentTypes = $request->getAcceptableContentTypes();
 
-        if (1 === count($acceptableContentTypes) && "*/*" === $acceptableContentTypes[0]) {
+        if (1 === \count($acceptableContentTypes) && '*/*' === $acceptableContentTypes[0]) {
             return null;
         }
 

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/attendees/{id}", name="update_attendee", methods={"PUT"}, format="json")
@@ -21,9 +22,10 @@ class UpdateController extends ApiController
 
     public function __construct(
         SerializerInterface $serializer,
+        ValidatorInterface $validator,
         EntityManagerInterface $entityManager
     ) {
-        parent::__construct($serializer);
+        parent::__construct($serializer, $validator);
 
         $this->entityManager = $entityManager;
     }

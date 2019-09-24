@@ -6,20 +6,33 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ApiController
 {
     private $serializer;
+    private $validator;
 
-    public function __construct(SerializerInterface $serializer)
-    {
+    public function __construct(
+        SerializerInterface $serializer,
+        ValidatorInterface $validator
+    ) {
         $this->serializer = $serializer;
+        $this->validator = $validator;
     }
 
     protected function deserializeRequestContent(Request $request, string $type)
     {
         $entity = $this->serializer->deserialize($request->getContent(), $type, $request->getRequestFormat());
+
+        $validationErrors = $this->validator->validate($entity);
+
+        if (\count($validationErrors) > 0) {
+            // throw a BadRequestHttpException for now, we will introduce proper ApiExceptions later
+            throw new BadRequestHttpException();
+        }
 
         return $entity;
     }

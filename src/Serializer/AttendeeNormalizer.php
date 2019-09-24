@@ -6,10 +6,6 @@ namespace App\Serializer;
 
 use App\Entity\Attendee;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Serializer\Exception\CircularReferenceException;
-use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -35,7 +31,7 @@ class AttendeeNormalizer implements ContextAwareNormalizerInterface
         $customContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getFirstname() . ' ' . $object->getLastname();
-            }
+            },
         ];
 
         $context = array_merge($context, $customContext);

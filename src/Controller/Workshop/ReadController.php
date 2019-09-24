@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/workshops/{id}", name="read_workshop", methods={"GET"}, format="json")
@@ -19,9 +20,12 @@ class ReadController extends ApiController
 {
     private $workshopRepository;
 
-    public function __construct(SerializerInterface $serializer, WorkshopRepository $workshopRepository)
-    {
-        parent::__construct($serializer);
+    public function __construct(
+        SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        WorkshopRepository $workshopRepository
+    ) {
+        parent::__construct($serializer, $validator);
 
         $this->workshopRepository = $workshopRepository;
     }

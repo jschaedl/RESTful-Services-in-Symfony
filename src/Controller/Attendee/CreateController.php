@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/attendees", name="create_attendee", methods={"POST"}, format="json")
@@ -23,10 +24,11 @@ class CreateController extends ApiController
 
     public function __construct(
         SerializerInterface $serializer,
+        ValidatorInterface $validator,
         EntityManagerInterface $entityManager,
         UrlGeneratorInterface $urlGenerator
     ) {
-        parent::__construct($serializer);
+        parent::__construct($serializer, $validator);
 
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
