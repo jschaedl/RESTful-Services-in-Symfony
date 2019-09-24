@@ -110,14 +110,4 @@ class Attendee
 
         return $this;
     }
-
-    public function toArray()
-    {
-        return [
-            'id' => $this->id,
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'email' => $this->email,
-        ];
-    }
 }

@@ -4,20 +4,26 @@ declare(strict_types=1);
 
 namespace App\Controller\Attendee;
 
+use App\Controller\ApiController;
 use App\Entity\Attendee;
 use App\Repository\AttendeeRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/attendees", name="list_attendees", methods={"GET"})
  */
-class ListController
+class ListController extends ApiController
 {
     private $attendeeRepository;
 
-    public function __construct(AttendeeRepository $attendeeRepository)
-    {
+    public function __construct(
+        AttendeeRepository $attendeeRepository,
+        SerializerInterface $serializer
+    ) {
+        parent::__construct($serializer);
 
         $this->attendeeRepository = $attendeeRepository;
     }
@@ -26,12 +32,9 @@ class ListController
     {
         $attendees = $this->attendeeRepository->findAll();
 
-        $attendeesAsArray = array_map(function (Attendee $attendee): array {
-            return $attendee->toArray();
-        }, $attendees);
-
-        return new Response(json_encode($attendeesAsArray), Response::HTTP_OK, [
-            'content-type' => 'application/json'
-        ]);
+        return $this->createApiResponse(
+            $attendees,
+            Response::HTTP_OK
+        );
     }
 }
