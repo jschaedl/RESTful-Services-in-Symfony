@@ -17,6 +17,13 @@ class ApiController
         $this->serializer = $serializer;
     }
 
+    protected function deserializeRequestContent(Request $request, string $type)
+    {
+        $entity = $this->serializer->deserialize($request->getContent(), $type, $request->getRequestFormat());
+
+        return $entity;
+    }
+
     protected function createApiResponse(Request $request, $data, int $statusCode = Response::HTTP_OK): Response
     {
         if (null === $data) {

@@ -39,6 +39,12 @@ class Workshop
         $this->attendees = new ArrayCollection();
     }
 
+    public function updateBy(self $workshop): void
+    {
+        $this->title = $workshop->getTitle();
+        $this->workshopDate = $workshop->getWorkshopDate();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,9 +55,23 @@ class Workshop
         return $this->title;
     }
 
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
     public function getWorkshopDate(): ?\DateTimeImmutable
     {
         return $this->workshopDate;
+    }
+
+    public function setWorkshopDate(\DateTimeImmutable $workshopDate): self
+    {
+        $this->workshopDate = $workshopDate;
+
+        return $this;
     }
 
     /**

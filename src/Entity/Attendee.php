@@ -44,6 +44,13 @@ class Attendee
         $this->workshops = new ArrayCollection();
     }
 
+    public function updateBy(self $otherAttendee): void
+    {
+        $this->firstname = $otherAttendee->getFirstname();
+        $this->lastname = $otherAttendee->getLastname();
+        $this->email = $otherAttendee->getEmail();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,7 +61,7 @@ class Attendee
         return $this->firstname;
     }
 
-    public function changeFirstname(string $firstname): self
+    public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
 
@@ -66,7 +73,7 @@ class Attendee
         return $this->lastname;
     }
 
-    public function changeLastname(string $lastname): self
+    public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
 
@@ -78,7 +85,7 @@ class Attendee
         return $this->email;
     }
 
-    public function changeEmail(string $email): self
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
