@@ -55,4 +55,8 @@ class WorkshopRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('w');
+    }
 }
