@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+$finder = Finder::create()
+    ->in([
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+    ])
+    ->append([
+        __FILE__,
+        __DIR__ . '/bin/console',
+        __DIR__ . '/public/index.php',
+    ])
+;
+
+return Config::create()
+    ->setFinder($finder)
+    ->setUsingCache(true)
+    ->setCacheFile(__DIR__ . '/.php_cs.cache')
+    ->setRules([
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+        '@DoctrineAnnotation' => true,
+        '@PHP71Migration' => true,
+        '@PHP71Migration:risky' => true,
+        '@PHPUnit75Migration:risky' => true,
+        'array_indentation' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'compact_nullable_typehint' => true,
+        'concat_space' => ['spacing' => 'one'],
+        'method_chaining_indentation' => true,
+        'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_for_chained_calls'],
+        'no_superfluous_phpdoc_tags' => true,
+        'no_useless_else' => true,
+        'no_useless_return' => true,
+        'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
+        'phpdoc_order' => true,
+        'visibility_required' => ['elements' => ['property', 'method', 'const']],
+    ])
+    ->setRiskyAllowed(true)
+;
