@@ -7,6 +7,7 @@ namespace App\Controller\Attendee;
 use App\Controller\ApiController;
 use App\Entity\Attendee;
 use App\Repository\AttendeeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/attendees/{id}", name="read_attendee", methods={"GET"}, format="json")
+ * @IsGranted("ROLE_USER")
  */
 class ReadController extends ApiController
 {

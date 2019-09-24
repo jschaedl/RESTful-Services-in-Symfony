@@ -21,6 +21,7 @@ Let's set up the Authentication/Authorization for our API based on Json Web Toke
 - require LexikJWTAuthenticationBundle: `composer require lexik/jwt-authentication-bundle`
 - create a private and a public key (https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#getting-started)
 - adjust the config and add a TOKEN_TTL
+- adjust the passphrase: api_example
 
 - adjust firewall configuration (firewall for token: basic auth; firewall for api: guard authenticator)
 - implement the `JwtTokenAuthenticator` extending the `AbstractGuardAuthenticator`

@@ -1,0 +1,43 @@
+security:
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: auto
+
+    providers:
+        in_memory:
+            memory:
+                users:
+                    api_user: { password: '$2y$13$6Cc1CLoERFozkNdqHceBEeYdzZpyef2FEQovaqTbcKgF9hAATx89m', roles: 'ROLE_USER' } # password: api_user
+                    api_admin: { password: '$2y$13$aWQ/vgmJFbZpfPEqCR8wxeh1AKEVu6ieSqUjO4NoBsNl0i8T4oXwG', roles: 'ROLE_ADMIN' } # password: api_admin
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        token:
+            anonymous: true
+            stateless: true
+            pattern: ^/token
+            http_basic: true
+        api:
+            anonymous: ~
+            logout: ~
+            stateless: true
+            pattern: ^/(workshops|attendees)
+            guard:
+                authenticator:
+                    - App\Security\JwtTokenAuthenticator
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

@@ -8,6 +8,7 @@ use App\Controller\ApiController;
 use App\Entity\Attendee;
 use App\Entity\Workshop;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @Route("/workshops/{id}/attendees/add/{attendee_id}", name="add_attendee_to_workshop", methods={"POST"}, format="json")
  * @ParamConverter("attendee", options={"id": "attendee_id"})
+ * @IsGranted("ROLE_USER")
  */
 class AddAttendeeToWorkshopController extends ApiController
 {
