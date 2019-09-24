@@ -59,6 +59,20 @@ class Attendee
         $this->email = $otherAttendee->getEmail();
     }
 
+    /**
+     * Every Attendee can only attend one workshop per day.
+     */
+    public function canAttend(Workshop $workshop): bool
+    {
+        foreach ($this->getWorkshops() as $attendeeWorkshop) {
+            if ($workshop->getWorkshopDate()->getTimestamp() === $attendeeWorkshop->getWorkshopDate()->getTimestamp()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
