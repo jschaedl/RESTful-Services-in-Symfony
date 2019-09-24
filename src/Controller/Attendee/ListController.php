@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/attendees", name="list_attendees", methods={"GET"})
+ * @Route("/attendees", name="list_attendees", methods={"GET"}, format="json")
  */
 class ListController extends ApiController
 {
@@ -40,6 +40,6 @@ class ListController extends ApiController
             'list_attendees'
         );
 
-        return $this->createApiResponse($collection, Response::HTTP_OK);
+        return $this->createApiResponse($request, $collection, Response::HTTP_OK);
     }
 }

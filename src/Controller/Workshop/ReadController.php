@@ -7,12 +7,13 @@ namespace App\Controller\Workshop;
 use App\Controller\ApiController;
 use App\Entity\Workshop;
 use App\Repository\WorkshopRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/workshops/{id}", name="read_workshop", methods={"GET"})
+ * @Route("/workshops/{id}", name="read_workshop", methods={"GET"}, format="json")
  */
 class ReadController extends ApiController
 {
@@ -25,8 +26,8 @@ class ReadController extends ApiController
         $this->workshopRepository = $workshopRepository;
     }
 
-    public function __invoke(Workshop $workshop)
+    public function __invoke(Request $request, Workshop $workshop)
     {
-        return $this->createApiResponse($workshop, Response::HTTP_OK);
+        return $this->createApiResponse($request, $workshop, Response::HTTP_OK);
     }
 }

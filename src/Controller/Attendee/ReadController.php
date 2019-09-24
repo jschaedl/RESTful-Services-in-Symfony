@@ -7,12 +7,13 @@ namespace App\Controller\Attendee;
 use App\Controller\ApiController;
 use App\Entity\Attendee;
 use App\Repository\AttendeeRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/attendees/{id}", name="read_attendee", methods={"GET"})
+ * @Route("/attendees/{id}", name="read_attendee", methods={"GET"}, format="json")
  */
 class ReadController extends ApiController
 {
@@ -27,11 +28,8 @@ class ReadController extends ApiController
         $this->attendeeRepository = $attendeeRepository;
     }
 
-    public function __invoke(Attendee $attendee)
+    public function __invoke(Request $request, Attendee $attendee)
     {
-        return $this->createApiResponse(
-            $attendee,
-            Response::HTTP_OK
-        );
+        return $this->createApiResponse($request, $attendee, Response::HTTP_OK);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -16,18 +17,14 @@ class ApiController
         $this->serializer = $serializer;
     }
 
-    public function createApiResponse($data, int $statusCode): Response
+    protected function createApiResponse(Request $request, $data, int $statusCode = Response::HTTP_OK): Response
     {
         if (null === $data) {
-            return new Response('', $statusCode, [
-                'content-type' => 'application/json'
-            ]);
+            return new Response('', $statusCode);
         }
 
-        $serializedData = $this->serializer->serialize($data, 'json');
+        $dataSerialized = $this->serializer->serialize($data, $request->getRequestFormat());
 
-        return new Response($serializedData, $statusCode, [
-            'content-type' => 'application/json'
-        ]);
+        return new Response($dataSerialized, $statusCode);
     }
 }
