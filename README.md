@@ -18,7 +18,7 @@ This is example code that is not production-ready. It is intended for studying a
 
 ## Präsentation
 
-Die Slides zum Workshop können unter [contact@sensiolabs.d](mailto://contact@sensiolabs.de) angefragt werden. 
+Die Slides zum Workshop können unter [contact@sensiolabs.de](mailto://contact@sensiolabs.de) angefragt werden. 
 
 ## Installation
 
