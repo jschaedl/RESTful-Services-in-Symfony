@@ -16,6 +16,10 @@ This is example code that is not production-ready. It is intended for studying a
 
 (c) 2019 Jan Schädlich All rights reserved.
 
+## Präsentation
+
+Die Slides zum Workshop können unter [contact@sensiolabs.d](mailto://contact@sensiolabs.de) angefragt werden. 
+
 ## Installation
 
     # checkout the project
