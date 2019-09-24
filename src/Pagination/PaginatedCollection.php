@@ -21,6 +21,13 @@ class PaginatedCollection
         $this->count = \count($items);
     }
 
+    public function addlink(string $rel, string $href): self
+    {
+        $this->_links[$rel]['href'] = $href;
+
+        return $this;
+    }
+
     public function getItems(): array
     {
         return $this->items;
@@ -34,5 +41,13 @@ class PaginatedCollection
     public function getCount(): int
     {
         return $this->count;
+    }
+
+    /**
+     * @SerializedName("_links")
+     */
+    public function getLinks()
+    {
+        return $this->_links;
     }
 }

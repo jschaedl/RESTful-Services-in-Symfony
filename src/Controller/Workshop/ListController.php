@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller\Workshop;
 
 use App\Controller\ApiController;
-use App\Entity\Workshop;
 use App\Pagination\PaginationFactory;
 use App\Repository\WorkshopRepository;
 use Symfony\Component\HttpFoundation\Request;
