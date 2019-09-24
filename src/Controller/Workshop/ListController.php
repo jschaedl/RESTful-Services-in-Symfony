@@ -33,7 +33,8 @@ class ListController extends ApiController
         $collection = $this->paginationFactory->createCollection(
             $this->workshopRepository->getQueryBuilder(),
             $request->query->getInt('page', 1),
-            $request->query->getInt('size', 10)
+            $request->query->getInt('size', 10),
+            'list_workshops'
         );
 
         return $this->createApiResponse($collection, Response::HTTP_OK);

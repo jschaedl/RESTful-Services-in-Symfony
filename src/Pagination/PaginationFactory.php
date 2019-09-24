@@ -18,7 +18,7 @@ class PaginationFactory
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function createCollection(QueryBuilder $queryBuilder, int $page, int $size, string $routeName = ''): PaginatedCollection
+    public function createCollection(QueryBuilder $queryBuilder, int $page, int $size, string $routeName): PaginatedCollection
     {
         $pagerAdapter = new DoctrineORMAdapter($queryBuilder);
         $pager = new Pagerfanta($pagerAdapter);
@@ -33,33 +33,33 @@ class PaginationFactory
             $items[] = $item;
         }
 
-        return new PaginatedCollection($items, $pager->getNbResults());
+        $paginatedCollection = new PaginatedCollection($items, $pager->getNbResults());
 
-        $paginatedCollection->addlink('self', $this->urlGenerator->generate($routeName, [
+        $paginatedCollection->addLink('self', $this->urlGenerator->generate($routeName, [
             'page' => $page,
             'size' => $size,
         ]));
 
         if ($pager->hasNextPage()) {
-            $paginatedCollection->addlink('next', $this->urlGenerator->generate($routeName, [
+            $paginatedCollection->addLink('next', $this->urlGenerator->generate($routeName, [
                 'page' => $pager->getNextPage(),
                 'size' => $size,
             ], UrlGeneratorInterface::ABSOLUTE_URL));
         }
 
         if ($pager->hasPreviousPage()) {
-            $paginatedCollection->addlink('prev', $this->urlGenerator->generate($routeName, [
+            $paginatedCollection->addLink('prev', $this->urlGenerator->generate($routeName, [
                 'page' => $pager->getPreviousPage(),
                 'size' => $size,
             ], UrlGeneratorInterface::ABSOLUTE_URL));
         }
 
-        $paginatedCollection->addlink('first', $this->urlGenerator->generate($routeName, [
+        $paginatedCollection->addLink('first', $this->urlGenerator->generate($routeName, [
             'page' => 1,
             'size' => $size,
         ], UrlGeneratorInterface::ABSOLUTE_URL));
 
-        $paginatedCollection->addlink('last', $this->urlGenerator->generate($routeName, [
+        $paginatedCollection->addLink('last', $this->urlGenerator->generate($routeName, [
             'page' => $pager->getNbPages(),
             'size' => $size,
         ], UrlGeneratorInterface::ABSOLUTE_URL));

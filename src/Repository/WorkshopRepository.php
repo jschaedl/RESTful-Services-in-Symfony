@@ -22,6 +22,11 @@ class WorkshopRepository extends ServiceEntityRepository
         parent::__construct($registry, Workshop::class);
     }
 
+    public function getQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('w');
+    }
+
     // /**
     //  * @return Workshop[] Returns an array of Workshop objects
     //  */
@@ -50,8 +55,4 @@ class WorkshopRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function getQueryBuilder(): QueryBuilder
-    {
-        return $this->createQueryBuilder('w');
-    }
 }

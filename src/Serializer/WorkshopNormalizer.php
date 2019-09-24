@@ -6,6 +6,7 @@ namespace App\Serializer;
 
 use App\Entity\Attendee;
 use App\Entity\Workshop;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
@@ -17,10 +18,12 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class WorkshopNormalizer implements ContextAwareNormalizerInterface
 {
     private $normalizer;
+    private $urlGenerator;
 
-    public function __construct(ObjectNormalizer $normalizer)
+    public function __construct(ObjectNormalizer $normalizer, UrlGeneratorInterface $urlGenerator)
     {
         $this->normalizer = $normalizer;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function supportsNormalization($data, $format = null, array $context = [])
@@ -47,6 +50,14 @@ class WorkshopNormalizer implements ContextAwareNormalizerInterface
         $context = array_merge($context, $customContext);
 
         $data = $this->normalizer->normalize($object, $format, $context);
+
+        if (\is_array($data)) {
+            $data['_links']['self']['href'] = $this->urlGenerator->generate('read_workshop', [
+                'id' => $object->getId(),
+            ], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $data['_links']['collection']['href'] = $this->urlGenerator->generate('list_workshops', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        }
 
         return $data;
     }
