@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Attendee;
 
 use App\Controller\ApiController;
-use App\Entity\Attendee;
+use App\Pagination\PaginationFactory;
 use App\Repository\AttendeeRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -18,23 +18,27 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ListController extends ApiController
 {
     private $attendeeRepository;
+    private $paginationFactory;
 
     public function __construct(
         AttendeeRepository $attendeeRepository,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        PaginationFactory $paginationFactory
     ) {
         parent::__construct($serializer);
 
         $this->attendeeRepository = $attendeeRepository;
+        $this->paginationFactory = $paginationFactory;
     }
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $attendees = $this->attendeeRepository->findAll();
-
-        return $this->createApiResponse(
-            $attendees,
-            Response::HTTP_OK
+        $collection = $this->paginationFactory->createCollection(
+            $this->attendeeRepository->getQueryBuilder(),
+            $request->query->getInt('page', 1),
+            $request->query->getInt('size', 10)
         );
+
+        return $this->createApiResponse($collection, Response::HTTP_OK);
     }
 }

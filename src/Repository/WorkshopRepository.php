@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Workshop;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -49,4 +50,8 @@ class WorkshopRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('w');
+    }
 }
