@@ -19,7 +19,7 @@ This is example code that is not production-ready. It is intended for studying a
 ## Installation
 
     # checkout the project
-    $ git clone ...
+    $ git clone git@github.com:jschaedl/RESTful-Services-in-Symfony.git
 
     # install all dependencies
     $ composer install
